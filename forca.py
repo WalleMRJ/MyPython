@@ -3,8 +3,17 @@ import random
 
 def jogar():
     imprime_mensagem_abertura()
-    palavra_secreta = carrega_palavra_secreta()
-
+    
+    escolha = int(input("Escolha um tema de palavras!\n(1) Frutas\n(2) Carros\n(3) Aleatório\nOpção desejada: "))
+    if escolha == 1:
+        palavra_secreta = carrega_palavra_secreta_frutas()
+    if escolha == 2:
+        palavra_secreta = carrega_palavra_secreta_carros()
+    if escolha == 3:
+        palavra_secreta = carrega_palavra_secreta_aleatorio()
+    
+    palavra_secreta = palavra_secreta
+    
     letras_acertadas = inicializa_letras_acertadas(palavra_secreta)
     print(letras_acertadas)
 
@@ -31,6 +40,8 @@ def jogar():
         imprime_mensagem_vencedor()
     else:
         imprime_mensagem_perdedor(palavra_secreta)
+
+
 
 
 def desenha_forca(erros):
@@ -83,8 +94,6 @@ def desenha_forca(erros):
     print("_|___         ")
     print()
 
-
-
 def imprime_mensagem_vencedor():
     print("Parabéns, você ganhou!")
     print("       ___________      ")
@@ -97,7 +106,6 @@ def imprime_mensagem_vencedor():
     print("           ) (          ")
     print("         _.' '._        ")
     print("        '-------'       ")
-
 
 def imprime_mensagem_perdedor(palavra_secreta):
     print("Puxa, você foi enforcado!")
@@ -139,8 +147,8 @@ def imprime_mensagem_abertura():
     print("***Bem vindo ao jogo da Forca!***")
     print("*********************************")
 
-def carrega_palavra_secreta():
-    arquivo = open("palavras.txt", "r")
+def carrega_palavra_secreta_frutas():
+    arquivo = open("frutas.txt", "r")
     palavras = []
 
     for linha in arquivo:
@@ -153,6 +161,33 @@ def carrega_palavra_secreta():
     palavra_secreta = palavras[numero].upper()
     return palavra_secreta
 
+def carrega_palavra_secreta_carros():
+    arquivo = open("carros.txt", "r")
+    palavras = []
+
+    for linha in arquivo:
+        linha = linha.strip()
+        palavras.append(linha)
+
+    arquivo.close()
+
+    numero = random.randrange(0, len(palavras))
+    palavra_secreta = palavras[numero].upper()
+    return palavra_secreta
+
+def carrega_palavra_secreta_aleatorio():
+    arquivo = open("aleatorio.txt", "r")
+    palavras = []
+
+    for linha in arquivo:
+        linha = linha.strip()
+        palavras.append(linha)
+
+    arquivo.close()
+
+    numero = random.randrange(0, len(palavras))
+    palavra_secreta = palavras[numero].upper()
+    return palavra_secreta
 
 if(__name__ == "__main__"):
     jogar()
